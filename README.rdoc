@@ -1,0 +1,67 @@
+= Barkeep
+
+This is a PRE-RELEASE VERSION.  Tests & better docs pending.
+
+== Install
+
+* Install and require gem (add it to your Gemfile or your environment.rb file)
+* include Barkeep in your ApplicationHelper, i.e.
+
+    module ApplicationHelper
+      include Barkeep
+      ...
+    end
+
+* add some css/sass styling ... TODO...
+* Create a config file in config/barkeep.json (see example below)
+* call render_barkeep from your layout or footer, i.e. <%= render_barkeep %> in
+  erb or just =render_barkeep in Haml
+
+== Config
+
+Configuration is specified in a config/barkeep.json
+
+At minimum, you want to specify some panes and a github url:
+
+  {
+    "panes" : [
+      "branch_info",
+      "commit_sha_info"
+    ],
+    "github_url" : "https://github.com/user/repo_name"
+  }
+
+Panes are rendered in the order specified in the array.  You can specify as
+many panes as you wish.
+
+Panes are assumed to either be methods accessible in the context of your
+ApplicationHelper.  You can also specify a partial using the format
+"partial users/_info" (that is, partial, then the path to your partial).
+
+== Included panes
+
+* branch_info: shows the current branch and links to the branch on github
+* commit_sha_info: shows the current commit sha and links to the commit on
+  github (useful when testing on stage for knowing what is depolyed)
+* commit_author_info: show the author of the current commit
+* commit_date_info: show the date of the current commit (hover for full
+  timestamp)
+* rpm_request_info: if you're using the newrelic gem in development mode, this
+  provides a link to the development newerelic index and a link to the current
+  request profiled in newrelic
+
+== Contributing to Barkeep
+
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+== Copyright
+
+Copyright (c) 2011 PatientsLikeMe. See LICENSE.txt for
+further details.
+
