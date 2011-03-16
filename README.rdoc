@@ -26,7 +26,8 @@ At minimum, you want to specify some panes and a github url:
   {
     "panes" : [
       "branch_info",
-      "commit_sha_info"
+      "commit_sha_info",
+      "partial user/info"
     ],
     "github_url" : "https://github.com/user/repo_name"
   }
@@ -35,8 +36,8 @@ Panes are rendered in the order specified in the array.  You can specify as
 many panes as you wish.
 
 Panes are assumed to either be methods accessible in the context of your
-ApplicationHelper.  You can also specify a partial using the format
-"partial users/_info" (that is, partial, then the path to your partial).
+ApplicationHelper.  Alternatively, you can specify a partial using the format
+"partial path/to/your/partial"
 
 == Included panes
 
