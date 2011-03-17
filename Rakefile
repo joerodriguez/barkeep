@@ -20,7 +20,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = "open_source@patientslikeme.com"
   gem.authors = ["PatientsLikeMe"]
 
-  gem.files = Dir['lib/**/*.rb']
+  gem.files = Dir['lib/**/*.rb', 'lib/default.css']
 
   gem.add_runtime_dependency 'grit'
   gem.add_runtime_dependency 'json'

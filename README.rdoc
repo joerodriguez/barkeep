@@ -1,10 +1,13 @@
 = Barkeep
 
+Barkeep is an extensible developer's status bar to track your current deployed
+commit and more.
+
 This is a PRE-RELEASE VERSION.  Tests & better docs pending.
 
 == Install
 
-* Install and require gem (add it to your Gemfile or your environment.rb file)
+* Install and require gem (add it to your Gemfile or your environment.rb file).
 * include Barkeep in your ApplicationHelper, i.e.
 
     module ApplicationHelper
@@ -12,10 +15,15 @@ This is a PRE-RELEASE VERSION.  Tests & better docs pending.
       ...
     end
 
-* add some css/sass styling ... TODO...
+* add the barkeep styles in your layout header, i.e
+
+    <%= barkeep_styles unless %W(test production).include?(Rails.env) %>
+
+* call render_barkeep from your layout or footer, i.e.
+
+    <%= render_barkeep unless %W(test production).include?(Rails.env) %>
+
 * Create a config file in config/barkeep.json (see example below)
-* call render_barkeep from your layout or footer, i.e. <%= render_barkeep %> in
-  erb or just =render_barkeep in Haml
 
 == Config
 
@@ -38,6 +46,16 @@ many panes as you wish.
 Panes are assumed to either be methods accessible in the context of your
 ApplicationHelper.  Alternatively, you can specify a partial using the format
 "partial path/to/your/partial"
+
+== Custom Styling
+
+Barkeep comes with some basic styling that has worked well for us.  You are
+encouraged to modify it to suit your needs.  The easiest way to do this is to
+call barkeep_styles as normal, view source, and extract the css (search for
+barkeep).  You can then pull it in to your main stylesheet or Sass-ify it, etc.
+
+Once you've setup your own styles, you probably won't want to call
+barkeep_styles anymore.
 
 == Included panes
 

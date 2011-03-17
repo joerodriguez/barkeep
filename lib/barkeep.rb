@@ -2,6 +2,10 @@ require 'json'
 require 'grit_wrapper'
 
 module Barkeep
+  def barkeep_styles
+    content_tag(:style, File.read(File.expand_path(File.dirname(__FILE__) + "/default.css")))
+  end
+
   def render_barkeep
     return unless grit_info.repository?
 
