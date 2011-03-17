@@ -1,7 +1,12 @@
 = Barkeep
 
 Barkeep is an extensible developer's status bar to track your current deployed
-commit and more.
+commit and more.  Barkeep sits at the bottom of your app and shows information
+you deem useful.
+
+Here's an example of Barkeep running with some default panes:
+
+http://i.imgur.com/0TTHX.png
 
 This is a PRE-RELEASE VERSION.  Tests & better docs pending.
 
