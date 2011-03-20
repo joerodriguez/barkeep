@@ -1,6 +1,10 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    actionpack (2.3.11)
+      activesupport (= 2.3.11)
+      rack (~> 1.1.0)
+    activesupport (2.3.11)
     diff-lcs (1.1.2)
     git (1.2.5)
     grit (2.0.0)
@@ -12,6 +16,8 @@ GEM
       rake
     json (1.4.6)
     mime-types (1.16)
+    mocha (0.9.12)
+    rack (1.1.1)
     rake (0.8.7)
     rcov (0.9.9)
     shoulda (2.11.3)
@@ -20,9 +26,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionpack (= 2.3.11)
+  activesupport (= 2.3.11)
   bundler (~> 1.0.0)
   grit
   jeweler (~> 1.5.2)
   json
+  mocha (>= 0.9.12)
   rcov
   shoulda

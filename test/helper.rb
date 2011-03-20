@@ -9,6 +9,10 @@ rescue Bundler::BundlerError => e
 end
 require 'test/unit'
 require 'shoulda'
+require 'mocha'
+require 'active_support'
+require 'action_pack'
+require 'action_view'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))

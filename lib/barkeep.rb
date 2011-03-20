@@ -9,10 +9,8 @@ module Barkeep
   def render_barkeep
     return unless grit_info.repository?
 
-    @@barkeep_config ||= JSON.parse(File.read("#{Rails.root}/config/barkeep.json"))
-
     content_tag(:dl, :id => 'barkeep') do
-      @@barkeep_config['panes'].map do |name|
+      barkeep_config['panes'].map do |name|
         if name =~ /^(p|partial) (.*)/
           render :partial => $2
         else
@@ -23,6 +21,10 @@ module Barkeep
         content_tag(:a, "&times;", :href => '#', :onclick => "c = document.getElementById('barkeep'); c.parentNode.removeChild(c); return false", :title => 'Close me!')
       end
     end
+  end
+
+  def barkeep_config
+    @@barkeep_config ||= JSON.parse(File.read("#{Rails.root}/config/barkeep.json"))
   end
 
   def branch_info
@@ -51,7 +53,7 @@ module Barkeep
   end
 
   def github_url
-    @@barkeep_config['github_url']
+    barkeep_config['github_url']
   end
 
   def grit_info
