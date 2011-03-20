@@ -8,8 +8,6 @@ Here's an example of Barkeep running with some default panes:
 
 http://i.imgur.com/0TTHX.png
 
-This is a PRE-RELEASE VERSION.  Tests & better docs pending.
-
 == Install
 
 * Install and require gem (add it to your Gemfile or your environment.rb file).
@@ -34,23 +32,26 @@ This is a PRE-RELEASE VERSION.  Tests & better docs pending.
 
 Configuration is specified in a config/barkeep.json
 
-At minimum, you want to specify some panes and a github url:
+You want to specify some panes and a github url.  Here is a config with all the
+default panes:
 
   {
     "panes" : [
       "branch_info",
       "commit_sha_info",
-      "partial user/info"
+      "commit_author_info",
+      "commit_date_info",
+      "rpm_request_info"
     ],
-    "github_url" : "https://github.com/user/repo_name"
+    "github_url" : "https://github.com/USER_OR_ORGANIZATION/PROJECT_NAME"
   }
 
 Panes are rendered in the order specified in the array.  You can specify as
 many panes as you wish.
 
 Panes are assumed to either be methods accessible in the context of your
-ApplicationHelper.  Alternatively, you can specify a partial using the format
-"partial path/to/your/partial"
+ApplicationHelper.  Alternatively, you can specify a partial as a pane using
+the format "partial path/to/your/partial"
 
 == Custom Styling
 
