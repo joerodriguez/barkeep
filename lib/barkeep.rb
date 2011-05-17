@@ -2,12 +2,22 @@ require 'json'
 require 'grit_wrapper'
 
 module Barkeep
+  def load_barkeep?
+    if defined?(Rails)
+      this_env = Rails.env
+    elsif defined?(Sinatra)
+      this_env = Sinatra::Application.settings.environment
+    end
+    barkeep_config['environments'].include?(this_env.to_s)
+  end
+
   def barkeep_styles
+    return unless load_barkeep?
     %(<style>#{File.read(File.expand_path(File.dirname(__FILE__) + "/default.css"))}</style>)
   end
 
   def render_barkeep
-    return unless grit_info.repository?
+    return unless load_barkeep? && grit_info.repository?
 
     %(
       <dl id="barkeep">
