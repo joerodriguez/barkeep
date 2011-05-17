@@ -1,7 +1,6 @@
 require 'helper'
 
 class TestBarkeep < Test::Unit::TestCase
-  include ActionView::Helpers
   include Barkeep
 
   attr_accessor :output_buffer
@@ -23,6 +22,6 @@ class TestBarkeep < Test::Unit::TestCase
         <dd class="close"><a href="#" onclick="c = document.getElementById('barkeep'); c.parentNode.removeChild(c); return false" title="Close me!">&times;</a></dd>
       </dl>
     )
-    assert_equal expected.gsub(/\n\s+/, ''), render_barkeep
+    assert_equal expected.gsub(/\s+/, ''), render_barkeep.gsub(/\s+/, '')
   end
 end

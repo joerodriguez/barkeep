@@ -3,24 +3,28 @@ require 'grit_wrapper'
 
 module Barkeep
   def barkeep_styles
-    content_tag(:style, File.read(File.expand_path(File.dirname(__FILE__) + "/default.css")))
+    %(<style>#{File.read(File.expand_path(File.dirname(__FILE__) + "/default.css"))}</style>)
   end
 
   def render_barkeep
     return unless grit_info.repository?
 
-    content_tag(:dl, :id => 'barkeep') do
-      barkeep_config['panes'].map do |name|
-        if name =~ /^(p|partial) (.*)/
-          render :partial => $2
-        else
-          send(name)
-        end
-      end <<
-      content_tag(:dd, :class => 'close') do
-        content_tag(:a, "&times;", :href => '#', :onclick => "c = document.getElementById('barkeep'); c.parentNode.removeChild(c); return false", :title => 'Close me!')
-      end
-    end
+    %(
+      <dl id="barkeep">
+      #{
+        barkeep_config['panes'].map do |name|
+          if name =~ /^(p|partial) (.*)/
+            render :partial => $2
+          else
+            send(name)
+          end
+        end.join('')
+      }
+      <dd class="close">
+        <a href="#" onclick="c = document.getElementById('barkeep'); c.parentNode.removeChild(c); return false" title="Close me!">&times;</a>
+      </dd>
+      </dl>
+    )
   end
 
   def barkeep_config
@@ -28,27 +32,25 @@ module Barkeep
   end
 
   def branch_info
-    content_tag(:dt, 'Branch:') +
-      content_tag(:dd, content_tag(:a, grit_info[:branch], branch_link_attributes))
+    %(<dt>Branch:</dt><dd><a href="#{branch_link_attributes[:href]}">#{grit_info[:branch]}</a></dd>)
   end
 
   def commit_sha_info
-    content_tag(:dt, 'Commit:') +
-      content_tag(:dd, content_tag(:a, grit_info[:commit].try(:slice, 0,8), commit_link_attributes))
+    %(<dt>Commit:</dt><dd><a href="#{commit_link_attributes[:href]}" title="#{commit_link_attributes[:title]}">#{(grit_info[:commit] || "").slice(0,8)}</a></dd>)
   end
 
   def commit_author_info
-    content_tag(:dt, 'Who:') + content_tag(:dd, grit_info[:last_author])
+    %(<dt>Who:</dt><dd>#{grit_info[:last_author]}</dd>)
   end
 
   def commit_date_info
-    content_tag(:dt, 'When:') + content_tag(:dd, grit_info[:date].try(:to_s, :short), :title => grit_info[:date].to_s)
+    short_date = (grit_info[:date].respond_to?(:strftime) ? grit_info[:date].strftime("%d %B, %H:%M") : short_date.to_s)
+    %(<dt>When:</dt><dd title="#{grit_info[:date].to_s}">#{short_date}</dd>)
   end
 
   def rpm_request_info
     if rpm_enabled?
-      content_tag(:dt, link_to('RPM', '/newrelic', :target => 'blank') + ':') <<
-        content_tag(:dd, link_to('request', rpm_url, :target => 'blank'))
+      %(<dt><a href="/newrelic">RPM:</a></dt><dd><a href="#{rpm_url}">request</a></dd>)
     end
   end
 
