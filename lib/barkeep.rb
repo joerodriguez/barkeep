@@ -38,7 +38,7 @@ module Barkeep
   end
 
   def barkeep_config
-    @@barkeep_config ||= JSON.parse(File.read("#{Rails.root}/config/barkeep.json"))
+    @@barkeep_config ||= JSON.parse(File.read("config/barkeep.json"))
   end
 
   def branch_info
