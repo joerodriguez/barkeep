@@ -11,20 +11,26 @@ http://i.imgur.com/0TTHX.png
 == Install
 
 * Install and require gem (add it to your Gemfile or your environment.rb file).
-* include Barkeep in your ApplicationHelper, i.e.
+* in Rails, include Barkeep in your ApplicationHelper, i.e.
 
     module ApplicationHelper
       include Barkeep
       ...
     end
 
+* in Sinatra, include Barkeep as a helper in your main app file, i.e.
+
+    helpers Barkeep
+
 * add the barkeep styles in your layout header, i.e
 
-    <%= barkeep_styles unless %W(test production).include?(Rails.env) %>
+    <%= barkeep_styles %>
 
 * call render_barkeep from your layout or footer, i.e.
 
-    <%= render_barkeep unless %W(test production).include?(Rails.env) %>
+    <%= render_barkeep %>
+
+* These two methods will return an empty string unless the app is running under one of the environments specified in your config file
 
 * Create a config file in config/barkeep.json (see example below)
 
@@ -32,8 +38,8 @@ http://i.imgur.com/0TTHX.png
 
 Configuration is specified in a config/barkeep.json
 
-You want to specify some panes and a github url.  Here is a config with all the
-default panes:
+You want to specify some panes, a github url, and the environments in which you
+want to render Barkeep.  Here is a config with all the default panes:
 
   {
     "panes" : [
@@ -43,7 +49,8 @@ default panes:
       "commit_date_info",
       "rpm_request_info"
     ],
-    "github_url" : "https://github.com/USER_OR_ORGANIZATION/PROJECT_NAME"
+    "github_url" : "https://github.com/USER_OR_ORGANIZATION/PROJECT_NAME",
+    "environments" : ["development", "stage"]
   }
 
 Panes are rendered in the order specified in the array.  You can specify as
