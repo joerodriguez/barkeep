@@ -96,8 +96,11 @@ module Barkeep
     end
   end
 
+  def rpm_sample_id
+    NewRelic::Agent.instance.transaction_sampler.current_sample_id
+  end
+
   def rpm_url
-    rpm_id = NewRelic::Agent.instance.transaction_sampler.current_sample_id
-    "/newrelic/show_sample_detail/#{rpm_id}"
+    "/newrelic/show_sample_detail/#{rpm_sample_id}"
   end
 end
