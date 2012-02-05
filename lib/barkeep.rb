@@ -82,7 +82,7 @@ module Barkeep
   def commit_link_attributes
     {
       :href => "#{github_url}/commit/#{grit_info[:commit]}",
-      :title => "committed #{grit_info[:date]}"
+      :title => "committed #{grit_info[:date]} by #{grit_info[:last_author]}"
     }
   end
 
