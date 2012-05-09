@@ -24,11 +24,11 @@ http://i.imgur.com/0TTHX.png
 
 * add the barkeep styles in your layout header, i.e
 
-    <%= barkeep_styles %>
+    <%= barkeep.styles %>
 
-* call render_barkeep from your layout or footer, i.e.
+* call barkeep.render from your layout or footer, i.e.
 
-    <%= render_barkeep %>
+    <%= barkeep.render %>
 
 * These two methods will return an empty string unless the app is running under one of the environments specified in your config file
 
@@ -64,11 +64,11 @@ the format "partial path/to/your/partial"
 
 Barkeep comes with some basic styling that has worked well for us.  You are
 encouraged to modify it to suit your needs.  The easiest way to do this is to
-call barkeep_styles as normal, view source, and extract the css (search for
+call barkeep.styles as normal, view source, and extract the css (search for
 barkeep).  You can then pull it in to your main stylesheet or Sass-ify it, etc.
 
 Once you've setup your own styles, you probably won't want to call
-barkeep_styles anymore.
+barkeep.styles anymore.
 
 == Included panes
 

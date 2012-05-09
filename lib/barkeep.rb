@@ -2,27 +2,40 @@ require 'json'
 require 'grit_wrapper'
 
 module Barkeep
-  def load_barkeep?
+
+  def barkeep
+    @@barkeep ||= Barkeeper.new
+  end
+
+end
+
+class Barkeeper
+
+  def config
+    @config ||= JSON.parse(File.read("config/barkeep.json"))
+  end
+
+  def load?
     if defined?(Rails)
       this_env = Rails.env
     elsif defined?(Sinatra)
       this_env = Sinatra::Application.settings.environment
     end
-    barkeep_config['environments'].include?(this_env.to_s)
+    config['environments'].include?(this_env.to_s)
   end
 
-  def barkeep_styles
-    return unless load_barkeep?
+  def styles
+    return unless load?
     %(<style>#{File.read(File.expand_path(File.dirname(__FILE__) + "/default.css"))}</style>)
   end
 
-  def render_barkeep
-    return unless load_barkeep? && grit_info.repository?
+  def render
+    return unless load? && grit_info.repository?
 
     %(
       <dl id="barkeep">
       #{
-        barkeep_config['panes'].map do |name|
+        config['panes'].map do |name|
           if name =~ /^(p|partial) (.*)/
             render :partial => $2
           else
@@ -35,10 +48,6 @@ module Barkeep
       </dd>
       </dl>
     )
-  end
-
-  def barkeep_config
-    @@barkeep_config ||= JSON.parse(File.read("config/barkeep.json"))
   end
 
   def branch_info
@@ -65,7 +74,7 @@ module Barkeep
   end
 
   def github_url
-    barkeep_config['github_url']
+    config['github_url']
   end
 
   def grit_info
